@@ -1,0 +1,24 @@
+# 生产环境依赖
+dependencies: {}
+
+# 开发环境依赖
+devDependencies:
+  typescript: ^5.0.0
+  vite: ^5.0.0
+
+# 脚本命令
+scripts:
+  dev: vite
+  build: tsc && vite build
+  preview: vite preview
+  lint: echo "No linting configured"
+
+# 构建配置
+build:
+  output: dist
+  assets: assets
+
+# 缓存配置
+cache:
+  maxAge: 31536000  # 1 年
+  assetsPattern: "assets/**/*"

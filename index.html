@@ -1,13 +1,55 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="./vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>snake-challenge</title>
+    <meta name="description" content="经典贪吃蛇游戏 - Snake Challenge" />
+    <title>Snake Challenge | 贪吃蛇大作战</title>
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
+    <div id="app">
+      <div class="game-container">
+        <header class="game-header">
+          <h1>🐍 Snake Challenge</h1>
+          <div class="score-board">
+            <div class="score-item">
+              <span class="label">得分</span>
+              <span id="score" class="value">0</span>
+            </div>
+            <div class="score-item">
+              <span class="label">最高分</span>
+              <span id="high-score" class="value">0</span>
+            </div>
+            <div class="score-item">
+              <span class="label">等级</span>
+              <span id="level" class="value">1</span>
+            </div>
+          </div>
+        </header>
+        
+        <div class="game-area">
+          <canvas id="game-canvas" width="600" height="400"></canvas>
+          <div id="game-overlay" class="game-overlay">
+            <div class="overlay-content">
+              <h2 id="overlay-title">准备开始</h2>
+              <p id="overlay-desc">使用方向键或 WASD 控制蛇移动</p>
+              <button id="start-btn" class="btn-primary">开始游戏</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="game-controls">
+          <div class="control-hint">
+            <kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd> 或 <kbd>W</kbd><kbd>S</kbd><kbd>A</kbd><kbd>D</kbd> 移动
+          </div>
+          <div class="control-buttons">
+            <button id="pause-btn" class="btn-secondary" disabled>暂停</button>
+            <button id="reset-btn" class="btn-secondary">重置</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="./src/main.ts"></script>
   </body>
 </html>
