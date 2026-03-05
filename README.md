@@ -4,8 +4,8 @@
 
 ## 🎮 在线演示
 
-- **Gitee Pages**: [https://your-username.gitee.io/snake-challenge](https://your-username.gitee.io/snake-challenge)
-- **GitHub Pages**: [https://your-username.github.io/snake-challenge](https://your-username.github.io/snake-challenge)
+- **Gitee Pages**: [https://landycelv.gitee.io/snake-challenge](https://your-username.gitee.io/snake-challenge)
+- **GitHub Pages**: [https://landycelv.github.io/snake-challenge](https://your-username.github.io/snake-challenge)
 
 ## ✨ 特性
 
