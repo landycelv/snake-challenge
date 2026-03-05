@@ -1,4 +1,4 @@
-import { GameState, Direction, GRID_SIZE, CELL_SIZE, INITIAL_SPEED, SPEED_INCREMENT, MIN_SPEED } from './types'
+import { GameState, Direction, CELL_SIZE, INITIAL_SPEED, SPEED_INCREMENT, MIN_SPEED } from './types'
 import { Snake } from './Snake'
 import { Food } from './Food'
 

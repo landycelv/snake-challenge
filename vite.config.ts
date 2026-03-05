@@ -18,10 +18,6 @@ export default defineConfig({
     },
     rollupOptions: {
       output: {
-        manualChunks: {
-          // 代码分割优化
-          vendor: ['snake-challenge'],
-        },
         // 资源文件名添加 hash 用于缓存
         entryFileNames: 'assets/[name].[hash].js',
         chunkFileNames: 'assets/[name].[hash].js',
