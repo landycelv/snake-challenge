@@ -51,21 +51,38 @@ jobs:
           force_orphan: true
           commit_message: 'chore: deploy to github pages'
 
-      # 方案 2: 同步到 Gitee (需要配置 GITEE_TOKEN)
+      # 方案 2: 同步代码到 Gitee
       - name: Sync to Gitee
-        if: ${{ secrets.GITEE_TOKEN != '' }}
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          repository_url: 'https://${{ secrets.GITEE_TOKEN }}@gitee.com/landycelv/snake-challenge.git'
           branch: main
           force: false
           
-      - name: Deploy to Gitee Pages via SSH
-        if: ${{ secrets.GITEE_SSH_KEY != '' }}
-        uses: easingthemes/ssh-deploy@v4
-        with:
-          SSH_PRIVATE_KEY: ${{ secrets.GITEE_SSH_KEY }}
-          REMOTE_HOST: 'gitee.com'
-          REMOTE_USER: 'your-gitee-username'
-          SOURCE_DIR: 'dist'
-          TARGET_DIR: 'your-repo-name'
+      # 方案 3: Deploy to Gitee Pages (使用 Token)
+      - name: Deploy to Gitee Pages
+        run: |
+          # 配置 Git 用户信息
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          
+          # 克隆 Gitee 仓库的 gh-pages 分支
+          git clone -b gh-pages https://${{ secrets.GITEE_TOKEN }}@gitee.com/landycelv/snake-challenge.git gitee-pages 2>/dev/null || {
+            echo "gh-pages 分支不存在，创建新分支"
+            git clone https://${{ secrets.GITEE_TOKEN }}@gitee.com/landycelv/snake-challenge.git gitee-pages
+            cd gitee-pages
+            git checkout --orphan gh-pages
+            git reset --hard
+            cd ..
+          }
+          
+          # 复制构建产物
+          rm -rf gitee-pages/*
+          cp -r dist/* gitee-pages/
+          
+          # 提交并推送
+          cd gitee-pages
+          git add .
+          git commit -m "chore: deploy to gitee pages [auto ci]" || echo "No changes to commit"
+          git push origin gh-pages
