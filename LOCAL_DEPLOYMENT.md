@@ -288,6 +288,102 @@ rm -rf node_modules package-lock.json
 npm install
 ```
 
+---
+
+### 5.1.1 Windows 环境腾讯镜像源报错 (ENOTFOUND)
+
+**问题现象**:
+```
+http fetch GET http://mirrors.tencentyun.com/npm/@jridgewell/source-map/-/source-map-0.3.11.tgz
+attempt 1 failed with ENOTFOUND
+```
+
+**原因**: 腾讯镜像源在 Windows 环境下 DNS 解析不稳定或网络不通。
+
+**解决方案** (按优先级选择):
+
+#### 方案 1: 切换淘宝镜像 (推荐)
+```powershell
+# PowerShell 或 CMD
+npm config set registry https://registry.npmmirror.com
+npm cache clean --force
+rm -rf node_modules package-lock.json
+npm install
+```
+
+#### 方案 2: 使用官方源 (如国内访问慢可配合代理)
+```powershell
+npm config set registry https://registry.npmjs.org
+npm cache clean --force
+rm -rf node_modules package-lock.json
+npm install
+```
+
+#### 方案 3: 使用 163 镜像
+```powershell
+npm config set registry https://mirrors.cloud.tencent.com/npm/
+npm cache clean --force
+rm -rf node_modules package-lock.json
+npm install
+```
+
+#### 方案 4: 检查网络和 DNS
+```powershell
+# 1. 测试镜像源是否可访问
+ping mirrors.tencentyun.com
+
+# 2. 如无法 ping 通，更换 DNS
+# Windows 设置 → 网络和 Internet → 更改适配器选项
+# 右键当前网络 → 属性 → IPv4 → 使用以下 DNS:
+# 首选：8.8.8.8 (Google)
+# 备用：114.114.114.114 (国内)
+
+# 3. 刷新 DNS 缓存
+ipconfig /flushdns
+
+# 4. 重试安装
+npm install
+```
+
+#### 方案 5: 使用 npm 代理 (如公司网络限制)
+```powershell
+# 设置代理 (如有)
+npm config set proxy http://proxy-server:port
+npm config set https-proxy http://proxy-server:port
+
+# 或使用无代理模式
+npm config delete proxy
+npm config delete https-proxy
+```
+
+**验证镜像源配置**:
+```powershell
+npm config get registry
+# 应输出：https://registry.npmmirror.com 或其他可用源
+```
+
+---
+
+### 5.1.2 依赖安装缓慢
+
+**问题**: `npm install` 速度极慢，下载时间过长
+
+**解决方案**:
+```powershell
+# 1. 使用国内镜像加速
+npm config set registry https://registry.npmmirror.com
+
+# 2. 增加 npm 超时时间
+npm config set fetch-timeout 60000
+npm config set fetch-retries 5
+
+# 3. 使用 npm ci (如已有 package-lock.json)
+npm ci
+
+# 4. 并行安装依赖 (npm 7+)
+npm install --prefer-offline --no-audit
+```
+
 ### 5.2 Node.js 版本不兼容
 
 **问题**: `ERR_UNSUPPORTED_NODE_VERSION` 或语法错误
