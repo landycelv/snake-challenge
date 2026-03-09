@@ -1,5 +1,5 @@
 import type { Position } from './types'
-import { Direction, GRID_SIZE } from './types'
+import { Direction } from './types'
 
 /**
  * 蛇类 - 管理蛇的状态和移动
