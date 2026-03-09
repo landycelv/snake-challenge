@@ -3,7 +3,20 @@ import { SnakeGame } from './game/SnakeGame'
 
 // 游戏初始化
 document.addEventListener('DOMContentLoaded', () => {
+  // 获取 Canvas 元素并验证
   const canvas = document.getElementById('game-canvas') as HTMLCanvasElement
+  if (!canvas) {
+    console.error('[SnakeGame] Canvas element not found: #game-canvas')
+    return
+  }
+  
+  // 验证 Canvas 上下文
+  const ctx = canvas.getContext('2d')
+  if (!ctx) {
+    console.error('[SnakeGame] Canvas 2D context not supported')
+    return
+  }
+  
   const game = new SnakeGame(canvas)
   
   // UI 元素
